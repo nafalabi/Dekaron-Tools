@@ -8,7 +8,7 @@
 // =============
 class Clientmanager
 {
-private:
+public:
 	Client			clients[10];
 	int				clientTotal;
 	bool			checkClientExist(DWORD);
@@ -17,7 +17,7 @@ private:
 	int				clientLeaderIndex = 0;
 	bool			processIsActive = true;
 	bool			autoAttackIsActive = false;
-public:
+
 	// Settings
 	toolSettings settings;
 	// Constructor
@@ -40,5 +40,4 @@ public:
 	void set(std::string name, int clienNum);
 	void showAllClientDetails();
 	void showClientDetails(int clientNum);
-	void testFunction();
 };

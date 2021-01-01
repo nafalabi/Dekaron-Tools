@@ -5,13 +5,12 @@
 
 class Client
 {
-
-private:
+public:
 	DWORD		processId = 0;
 	HANDLE		hProcess = 0;
 	HWND		hwnd = 0;
 	uintptr_t	baseAddr = 0;
-public:
+
 	// Contructors
 	Client();
 	Client(DWORD);

@@ -5,7 +5,7 @@ namespace console
 {
 	extern std::stringstream outputStream;
 	void newCommand();
-	void print(std::string = "");
+	void print(std::string = "", bool newLine = false);
 	void clear();
 	std::stringstream getInput();
 };
@@ -21,7 +21,7 @@ inline void console::newCommand()
 	std::cout << "Dekaron > ";
 }
 
-inline void console::print(std::string message)
+inline void console::print(std::string message, bool newLine)
 {
 	// Add the parameter to the stream
 	console::outputStream << message;
@@ -29,6 +29,7 @@ inline void console::print(std::string message)
 	std::cout << console::outputStream.str();
 	// Clear the stream
 	console::outputStream.str("");
+	if (newLine) console::newCommand();
 }
 
 inline void console::clear()

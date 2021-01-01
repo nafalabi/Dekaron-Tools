@@ -124,7 +124,6 @@ void Clientmanager::callClientsMethodAsync(void (Client::* funcPtr)())
 
 	for (int i = 0; i < clientTotal; i++)
 	{
-		// auto dump = std::async(function, clients[i]);
 		std::thread attack(func, clients[i]);
 		attack.detach();
 		Sleep(1);
@@ -180,19 +179,21 @@ void Clientmanager::toggleAutoFollow()
 			clients[i].doFollowUser(leaderId);
 		}
 	}
-
-	console::outputStream << "All clients is following ";
-	console::outputStream << clients[clientLeaderIndex].charName;
-	console::print(console::outputStream.str());
+	
+	std::stringstream message;
+	message << "All clients is following ";
+	message << clients[clientLeaderIndex].charName;
+	console::print(message.str(), true);
 }
 
 void Clientmanager::toggleAutoAttack()
 {
-	autoAttackIsActive = !autoAttackIsActive;
+	// Turn on auto attack
+	autoAttackIsActive = true;
 
-	console::outputStream << "Auto attack is ";
-	console::outputStream << (autoAttackIsActive ? "ON" : "OFF");
-	console::print(console::outputStream.str());
+	std::stringstream message;
+	message << "Auto attack is ON";
+	console::print(message.str(), true);
 }
 
 void Clientmanager::set(std::string name, int clienNum)
@@ -201,12 +202,14 @@ void Clientmanager::set(std::string name, int clienNum)
 	if (index == -1)
 		return;
 
+	std::stringstream message;
+
 	if (name == "leader")
 	{
 		clientLeaderIndex = index;
-		console::outputStream << "Leader Has been set to ";
-		console::outputStream << clients[clientLeaderIndex].charName;
-		console::print(console::outputStream.str());
+		message << "Leader Has been set to ";
+		message << clients[clientLeaderIndex].charName;
+		console::print(message.str());
 	}
 	else if (name == "autoHP")
 	{
@@ -279,12 +282,4 @@ void Clientmanager::showClientDetails(int clientNum)
 	ss << "auto HP percentage : " << cl->settings.toleratedMpPercentage << "%"
 		<< "\n";
 	console::print(ss.str());
-}
-
-void Clientmanager::testFunction()
-{
-	for (int i = 0; i < clientTotal; i++)
-	{
-		clients[i].sendKeyStroke(112);
-	}
 }
